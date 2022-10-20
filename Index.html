@@ -13,13 +13,17 @@
        
     </header>
      <div id="app">
-        {{ msg }}
+        <input type="text" v-model="msg">
+        <h3>{{ msg }}</h3>
      </div>
      <footer></footer>
      <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
      <script>
       // $('#div1').text("Hello jQuery!!")
-      
+    //   $('#text1').keyup(function(){
+    //     $('#myH').text($('#text1').val())
+    //   })
+
       const { createApp } = Vue
       const app = createApp({
         data(){
