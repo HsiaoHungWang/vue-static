@@ -56,11 +56,12 @@
             //options api
             data(){
                 return{
-                    todos:[
-                        {"id": 1, "title": "作業1", "completed": true },
-                        {"id": 2, "title": "作業2", "completed": false },
-                        {"id": 3, "title": "作業3", "completed": false },
-                    ],
+                    todos:JSON.parse(localStorage.getItem("todos") || '[]'),
+                    // [
+                    //     {"id": 1, "title": "作業1", "completed": true },
+                    //     {"id": 2, "title": "作業2", "completed": false },
+                    //     {"id": 3, "title": "作業3", "completed": false },
+                    // ],
                     newTodo:''
                 }
             },
@@ -75,19 +76,39 @@
                         return
                     }
                     this.todos.push({"id":this.todos.length+1,"title":value,"completed":false})
-                    this.newTodo=''
+                   this.newTodo=''   
                 },
                 removeTodo(item){
                   //  console.log(index)
-                   console.log(item)
+                  // console.log(item)
                    //取出要刪除todo在陣列中位置的索引值
-                  //const i = this.todos.indexOf(item) //1 找不到回傳-1
+                 const index = this.todos.indexOf(item) //1 找不到回傳-1
                   //刪除splice(從甚麼位置,刪除幾筆資料)
-                 // this.todos.splice(index,1)
+                  this.todos.splice(index,1)                  
+
                 }
+            },
+            watch:{
+                //監控newTodo的資料有沒有異動
+                //有，就執行handler這個function
+                newTodo:{
+                    handler(newTodo){
+                        localStorage.setItem("todo",newTodo)
+                    },
+                todos:{
+                    // handler(newTodos,oldTodos){
+                    handler(todos){
+                        localStorage.setItem("todos",JSON.stringify(todos))
+                    },
+                    deep:true
+                }
+                 
             }
+       
         })
         app.mount('#app')
+
+        console.log(localStorage.getItem("key1"))
     </script>
 </body>
 
