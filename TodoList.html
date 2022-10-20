@@ -9,6 +9,15 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
         <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <style>
+        .class1{
+            border:1px solid green
+        }
+        .completed{
+           text-decoration: line-through;
+           color:#949494
+        }
+    </style>
 </head>
 
 <body>
@@ -22,10 +31,12 @@
                     <li v-for="(todo, i) in todos" class="list-group-item" :key="i">
                         <div class="d-flex justify-content-between">
                             <div>
-                                <input class="form-check-input me-3" type="checkbox">
-                                <label class="form-check-label">{{i}} - {{ todo.title }}</label>
+                                <input v-model="todo.completed" class="form-check-input me-3" type="checkbox">
+                                <!--{css class名稱:Boolean}-->
+                                <!--如果Boolean為true表示要用套用css class的樣式-->
+                                <label :class="{completed:todo.completed}" class="form-check-label">{{i}} - {{ todo.title }}</label>
                             </div>
-                            <button @click="removeTodo(i)" class="badge bg-danger rounded-pill border-0">X</button>
+                            <button @click="removeTodo(todo)" class="badge bg-danger rounded-pill border-0">X</button>
                         </div>
                         <input type="text" class="form-control" hidden>
                     </li>  
@@ -46,8 +57,8 @@
             data(){
                 return{
                     todos:[
-                        {"id": 1, "title": "作業1", "completed": false },
-                        {"id": 2, "title": "作業2", "completed": true },
+                        {"id": 1, "title": "作業1", "completed": true },
+                        {"id": 2, "title": "作業2", "completed": false },
                         {"id": 3, "title": "作業3", "completed": false },
                     ],
                     newTodo:''
@@ -66,13 +77,13 @@
                     this.todos.push({"id":this.todos.length+1,"title":value,"completed":false})
                     this.newTodo=''
                 },
-                removeTodo(index){
+                removeTodo(item){
                   //  console.log(index)
-                   // console.log(item)
+                   console.log(item)
                    //取出要刪除todo在陣列中位置的索引值
                   //const i = this.todos.indexOf(item) //1 找不到回傳-1
                   //刪除splice(從甚麼位置,刪除幾筆資料)
-                  this.todos.splice(index,1)
+                 // this.todos.splice(index,1)
                 }
             }
         })
