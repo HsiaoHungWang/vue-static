@@ -12,8 +12,6 @@
 </head>
 
 <body>
-
-
     <div id="app" class="container">
         <div class="row">
             <div class="col-3"></div>
@@ -27,19 +25,17 @@
                                 <input class="form-check-input me-3" type="checkbox">
                                 <label class="form-check-label">{{i}} - {{ todo.title }}</label>
                             </div>
-                            <button class="badge bg-danger rounded-pill border-0">X</button>
+                            <button @click="removeTodo(i)" class="badge bg-danger rounded-pill border-0">X</button>
                         </div>
                         <input type="text" class="form-control" hidden>
-                    </li>
-                 
-
+                    </li>  
                 </ul>
                 <div class="mt-3 d-flex justify-content-between">
                     <strong class=" me-3">尚有 ? 個工作未完成</strong>
                     <button class="btn btn-warning me-3">清除完成工作</button>
                 </div>
             </div>
-            <div class="col-3" @click v-on:keyup></div>
+            <div class="col-3"></div>
         </div>
     </div>
 
@@ -69,6 +65,14 @@
                     }
                     this.todos.push({"id":this.todos.length+1,"title":value,"completed":false})
                     this.newTodo=''
+                },
+                removeTodo(index){
+                  //  console.log(index)
+                   // console.log(item)
+                   //取出要刪除todo在陣列中位置的索引值
+                  //const i = this.todos.indexOf(item) //1 找不到回傳-1
+                  //刪除splice(從甚麼位置,刪除幾筆資料)
+                  this.todos.splice(index,1)
                 }
             }
         })
