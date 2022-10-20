@@ -19,13 +19,13 @@
             <div class="col-3"></div>
             <div class="col-6">
                 <h3>Todos</h3>
-                <input type="text" class="form-control" autofocus autocomplete="off" placeholder="想要做甚麼?">
+                <input type="text" v-model="newTodo" @keyup.enter="addTodo" class="form-control" autofocus autocomplete="off" placeholder="想要做甚麼?">
                 <ul class="list-group mt-3">
-                    <li v-for="todo in todos" class="list-group-item">
+                    <li v-for="(todo, i) in todos" class="list-group-item" :key="i">
                         <div class="d-flex justify-content-between">
                             <div>
                                 <input class="form-check-input me-3" type="checkbox">
-                                <label class="form-check-label">{{ todo.title }}</label>
+                                <label class="form-check-label">{{i}} - {{ todo.title }}</label>
                             </div>
                             <button class="badge bg-danger rounded-pill border-0">X</button>
                         </div>
@@ -39,20 +39,36 @@
                     <button class="btn btn-warning me-3">清除完成工作</button>
                 </div>
             </div>
-            <div class="col-3"></div>
+            <div class="col-3" @click v-on:keyup></div>
         </div>
     </div>
 
     <script>
         const { createApp } = Vue
         const app = createApp({
+            //options api
             data(){
                 return{
                     todos:[
                         {"id": 1, "title": "作業1", "completed": false },
                         {"id": 2, "title": "作業2", "completed": true },
                         {"id": 3, "title": "作業3", "completed": false },
-                    ]
+                    ],
+                    newTodo:''
+                }
+            },
+            methods:{
+                addTodo(){
+                    //console.log(this.newTodo)
+                    //true && 程式會執行 => true
+                    //false && 程式沒有執行的需要 => false
+                    //false && false => false
+                    const value = this.newTodo && this.newTodo.trim()
+                    if(!value){
+                        return
+                    }
+                    this.todos.push({"id":this.todos.length+1,"title":this.newTodo,"completed":false})
+                    this.newTodo=''
                 }
             }
         })
