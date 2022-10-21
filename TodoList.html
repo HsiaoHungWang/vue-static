@@ -79,7 +79,11 @@
                     if(!value){
                         return
                     }
-                    this.todos.push({"id":this.todos[this.todos.length-1].id+1,"title":value,"completed":false})
+                    let id = 1
+                  if(this.todos.length > 0){
+                    id = this.todos[this.todos.length-1].id+1
+                  }
+                    this.todos.push({"id":id,"title":value,"completed":false})
                    this.newTodo=''   
                 },
                 removeTodo(item){
